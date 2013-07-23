@@ -55,7 +55,7 @@ on the server), ad-gallery javascript / css and fancybox javascript and css.
 
 Demo
 -------------------------
-[View the live demo](http://jsfiddle.net/t99kV/5/).
+[View the live demo](http://www.slideshow.promo-stic.fr/).
 
 
 Cheers
