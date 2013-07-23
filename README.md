@@ -38,6 +38,15 @@ Usage
         CKEDITOR.config.extraPlugins = 'slideshow';
 3. Set your CKEDITOR language if you did not set it yet.
         CKEDITOR.config.language = 'en';
+4. Place the "ad-gallery" and "fancybox" directories at the same level of the ckeditor directory.
+5. You're Done !! Just enjoy.
+
+The 2 directories "ad-gallery" and "fancybox" have to be placed at the same level as the ckeditor directory.
+They are just copy of the files from respective web sites (ad-gallery and fancybox), just a fews modifs have been made
+in the as-gallery css file, for info, and for curious people, the diffs compared to the original are in the patch 
+file under this ad-gallery directory.
+The location of these directiries can be changed by editing "slidesho.js" and updating the variables on top of
+this file.
         
 Requirements
 -------------------------
