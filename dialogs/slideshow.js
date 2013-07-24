@@ -688,7 +688,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 	    if (dialog.params.getVal('showtitleid') == false) {
 	    	strHook = ",  hooks: { displayDescription: function(image) {}}";
 	    }
-	    var params = "loader_image: '/ad-gallery/loader.gif'," +
+	    var params = "loader_image: '"+pluginPath+"3rdParty/ad-gallery/loader.gif'," +
 	    				" width:" + width + ", height:" + height +
 	    				", start_at_index: " + iSelectedIndex +
 	    				", animation_speed: " + dialog.params.getVal('animspeedid') + strHook +
