@@ -469,7 +469,6 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		strVar += '<script src="'+SCRIPT_JQUERY+'" type="text/javascript"></script>';
 	    strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_ADDGAL+"\"><\/script>";
 	    strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_ADDGAL+"\" \/>";
-	    
 		if ( dialog.params.getVal('openOnClickId') == true) {
 		    strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_FANCYBOX+"\" \/>";		
 		    strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_FANCYBOX+"\"><\/script>";

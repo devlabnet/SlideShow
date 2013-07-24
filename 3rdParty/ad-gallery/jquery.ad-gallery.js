@@ -9,7 +9,7 @@
  */
 (function($) {
   $.fn.adGallery = function(options) {
-    var defaults = { loader_image: './ad-gallery/loader.gif',
+    var defaults = { loader_image: './ckeditor/plugins/slideshow/3rdParty/ad-gallery/loader.gif',
                      start_at_index: 0,
                      update_window_hash: true,
                      description_wrapper: false,
