@@ -16,7 +16,7 @@
 CKEDITOR.plugins.add( 'slideshow', {
 	// Translations, available at the end of this file, without extra requests
 	//lang : [ 'en', 'fr' ],
-	lang: 'en,fr', 
+	lang: 'en,fr,ru', 
 
 	getSlideShowDialogCss : function()
 	{
@@ -194,6 +194,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 	{
 		en = { slideshow : en} ;
 		fr = { slideshow : fr} ;
+		ru = { slideshow : ru} ;
 	}
 // Translations
 //CKEDITOR.plugins.setLang( 'slideshow', 'fr', fr );
