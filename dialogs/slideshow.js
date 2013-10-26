@@ -678,10 +678,10 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 	};
 		
 	function createScriptAdGalleryRun(dialog, iSelectedIndex, width, height) {
-		var slideshowid =  dialog.params.getVal('slideshowid');
-		var galleryId =  'ad-gallery_' + slideshowid;
-		var strVar = '';
-		var strHook = '';
+		var slideshowid =  dialog.params.getVal('slideshowid'),
+			galleryId   =  'ad-gallery_' + slideshowid,
+			strVar      = '(function($) {',
+			strHook     = '';
 	    strVar += "$(function() {";
 	    if (width == 0) width = "false";
 	    if (height == 0) height = dialog.params.getVal('pictheightid');
@@ -699,15 +699,16 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 	    									",},";
 	    strVar += "   var galleries = $('#"+galleryId+"').adGallery({" + params + slideShowParams + "});";
 	    strVar += "});";
+		strVar += "})(jQuery);";
 	    //console.log(strVar);
 //	    strVar += "});";
 		return strVar;
 	};
 	
 	function createScriptFancyBoxRun(dialog) {
-		var slideshowid =  dialog.params.getVal('slideshowid');
-		var galleryId =  'ad-gallery_' + slideshowid;
-		var str = '';
+		var slideshowid =  dialog.params.getVal('slideshowid'),
+			galleryId   =  'ad-gallery_' + slideshowid,
+			str         = '(function($) {';
 //		str +=  "$(document).ready(function() {";
 		str += "$(function() {";
 		str += "$(\"#"+galleryId+"\").on(\"click\",\".ad-image\",function(){";
@@ -732,11 +733,12 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		str += "$.fancybox.open({";
 		str += "href:isrc,";
 		str += "beforeLoad:function(){";
-		str +="this.title=ititle+idesc;";
+		str += "this.title=ititle+idesc;";
 		str += "},";
-		str +="});";
 		str += "});";
 		str += "});";
+		str += "});";
+		str += "})(jQuery);";
 //		str += "});";
 		//console.log(str);
 		return str;
@@ -841,7 +843,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 					type: 'text/javascript'
 				}
 			});
-			scriptFancyBoxCss.setText("$('head').append('<link rel=\"stylesheet\" href=\""+CSS_FANCYBOX+"\" type=\"text/css\" />');");
+			scriptFancyBoxCss.setText("(function($) { $('head').append('<link rel=\"stylesheet\" href=\""+CSS_FANCYBOX+"\" type=\"text/css\" />'); })(jQuery);");
 			slideshowDOM.append(scriptFancyBoxCss);
 			
 			// Add javascript for ""fancyBox" 
@@ -871,7 +873,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 				type: 'text/javascript'
 			}
 		});
-		scriptAdGalleryCss.setText("$('head').append('<link rel=\"stylesheet\" href=\""+CSS_ADDGAL+"\" type=\"text/css\" />');");
+		scriptAdGalleryCss.setText("(function($) { $('head').append('<link rel=\"stylesheet\" href=\""+CSS_ADDGAL+"\" type=\"text/css\" />'); })(jQuery);");
 		slideshowDOM.append(scriptAdGalleryCss);
 
 		// Add RUN javascript for "ad-Gallery" 
