@@ -12,14 +12,18 @@
  * 
  */
 
-var IMG_PARAM = {"URL":0, "TITLE":1, "ALT":2, "WIDTH":3, "HEIGHT":4};
-var pluginPath = CKEDITOR.plugins.get( 'slideshow' ).path;
-SCRIPT_JQUERY = "https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js";
-SCRIPT_ADDGAL =  pluginPath+"3rdParty/ad-gallery/jquery.ad-gallery.min.js";
-CSS_ADDGAL = pluginPath+"3rdParty/ad-gallery/jquery.ad-gallery.css";
-SCRIPT_FANCYBOX = pluginPath+'3rdParty/fancybox2/jquery.fancybox.pack.js?v=2.1.5';
-CSS_FANCYBOX = pluginPath+"3rdParty/fancybox2/jquery.fancybox.css?v=2.1.5";
+ function removeDomainFromUrl(string) {
+ 	return string.replace(/^https?:\/\/[^\/]+/i, '');
+ }
 
+var IMG_PARAM = {"URL":0, "TITLE":1, "ALT":2, "WIDTH":3, "HEIGHT":4},
+pluginPath = removeDomainFromUrl(CKEDITOR.plugins.get( 'slideshow' ).path),
+BASE_PATH = removeDomainFromUrl(CKEDITOR.basePath),
+SCRIPT_JQUERY = "https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js",
+SCRIPT_ADDGAL =  pluginPath+"3rdParty/ad-gallery/jquery.ad-gallery.min.js",
+CSS_ADDGAL = pluginPath+"3rdParty/ad-gallery/jquery.ad-gallery.css",
+SCRIPT_FANCYBOX = pluginPath+'3rdParty/fancybox2/jquery.fancybox.pack.js?v=2.1.5',
+CSS_FANCYBOX = pluginPath+"3rdParty/fancybox2/jquery.fancybox.css?v=2.1.5";
 
 function var_dump(_var, _level) {
   var dumped_text = "";
@@ -298,7 +302,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 //----------------------------------------------------------------------------------------------------	
 	
 	function removePlaceHolderImg(dialog) {
-		var urlPlaceHolder =  CKEDITOR.basePath  + 'plugins/slideshow/icons/placeholder.png' ;
+		var urlPlaceHolder =  BASE_PATH  + 'plugins/slideshow/icons/placeholder.png' ;
 		if ((dialog.imagesList.length == 1) && (dialog.imagesList[0][IMG_PARAM.URL] == urlPlaceHolder)) {
 			// Remove the place Holder Image
 			var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
@@ -377,7 +381,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		}
 		if (someRemoved) {
 			if (dialog.imagesList.length == 0) {
-				var url =  CKEDITOR.basePath  + 'plugins/slideshow/icons/placeholder.png' ;
+				var url =  BASE_PATH  + 'plugins/slideshow/icons/placeholder.png' ;
 				oOption = addOption( combo, 'IMG_0' + ' : ' + url.substring(url.lastIndexOf('/')+1) , url, dialog.getParentEditor().document );
 				 dialog.imagesList.pushUnique([url, lang.imgTitle, lang.imgDesc, '50', '50']);
 			}
@@ -575,7 +579,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 
 	function initImgListFromFresh(dialog) {
 		combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
-		var url =  CKEDITOR.basePath  + 'plugins/slideshow/icons/placeholder.png' ;
+		var url =  BASE_PATH  + 'plugins/slideshow/icons/placeholder.png' ;
 		oOption = addOption( combo, 'IMG_0' + ' : ' + url.substring(url.lastIndexOf('/')+1) , url, dialog.getParentEditor().document );
 		dialog.imagesList.pushUnique([url, lang.imgTitle, lang.imgDesc, '50', '50']);
 		// select index 0
@@ -749,10 +753,10 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			var liObj = ulObj.append( 'li' );
 			liObj.setAttribute( 'contenteditable', 'false');
 			aObj = liObj.append( 'a' );
-			aObj.setAttribute( 'href', dialog.imagesList[i][IMG_PARAM.URL] );
+			aObj.setAttribute( 'href', removeDomainFromUrl(dialog.imagesList[i][IMG_PARAM.URL]) );
 			aObj.setAttribute('contenteditable', 'false');
 			newImgDOM = aObj.append('img');
-			newImgDOM.setAttribute( 'src', dialog.imagesList[i][IMG_PARAM.URL] );
+			newImgDOM.setAttribute( 'src', removeDomainFromUrl(dialog.imagesList[i][IMG_PARAM.URL]) );
 			newImgDOM.setAttribute( 'title', dialog.imagesList[i][IMG_PARAM.TITLE]);
 			newImgDOM.setAttribute( 'alt', dialog.imagesList[i][IMG_PARAM.ALT]);
 			newImgDOM.setAttribute( 'contenteditable', 'false');
