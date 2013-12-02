@@ -13,6 +13,18 @@
 // Register the plugin within the editor.
 ( function() {
 
+if (!Array.prototype.forEach) {
+    Array.prototype.forEach = function (fn, scope) {
+        'use strict';
+        var i, len;
+        for (i = 0, len = this.length; i < len; ++i) {
+            if (i in this) {
+                fn.call(scope, this[i], i, this);
+            }
+        }
+    };
+}
+
 CKEDITOR.plugins.add( 'slideshow', {
 	// Translations, available at the end of this file, without extra requests
 	//lang : [ 'en', 'fr' ],
@@ -154,7 +166,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 							fakeStyle = fakeElement.attributes.style || '';
 							var imgSrc = CKEDITOR.getUrl('plugins/slideshow/icons/placeholder.png' );
 							var foundOne = false;
-							realElement.forEach( function( node ) {
+							Array.prototype.forEach.call(realElement, function( node ) {
 								//console.log( "---------> " + node.name );
 
 								if (node.name == 'img') {
