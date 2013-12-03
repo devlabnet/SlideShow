@@ -186,7 +186,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 						}				
 					}
 				}
-			}, 3);
+			}, { priority: 5, applyToAll: true });
 		}
 		if ( htmlFilter ) {
 			htmlFilter.addRules({
