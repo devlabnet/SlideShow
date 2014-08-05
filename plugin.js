@@ -28,7 +28,7 @@ if (!Array.prototype.forEach) {
 CKEDITOR.plugins.add( 'slideshow', {
 	// Translations, available at the end of this file, without extra requests
 	//lang : [ 'en', 'fr' ],
-	lang: 'en,fr,ru', 
+	lang: 'en,fr,ru,pt,pt-br', 
 
 	getSlideShowDialogCss : function()
 	{
@@ -207,6 +207,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 		en = { slideshow : en} ;
 		fr = { slideshow : fr} ;
 		ru = { slideshow : ru} ;
+		pt = { slideshow : pt} ;
 	}
 // Translations
 //CKEDITOR.plugins.setLang( 'slideshow', 'fr', fr );
