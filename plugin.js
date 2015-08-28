@@ -1,13 +1,13 @@
-/**
+﻿/**
  * Plugin inserting Slide Shows elements into CKEditor editing area.
  *
  * Created out of the CKEditor Plugin SDK:
  * http://docs.ckeditor.com/#!/guide/plugin_sdk_sample_1
- * 
+ *
  * Copyright (c) 2003-2013, Cricri042. All rights reserved.
  * Targeted for "ad-gallery" JavaScript : http://adgallery.codeplex.com/
  * And "Fancybox" : http://fancyapps.com/fancybox/
- *  
+ *
  */
 
 // Register the plugin within the editor.
@@ -28,7 +28,7 @@ if (!Array.prototype.forEach) {
 CKEDITOR.plugins.add( 'slideshow', {
 	// Translations, available at the end of this file, without extra requests
 	//lang : [ 'en', 'fr' ],
-	lang: 'en,fr,ru,pt,pt-br', 
+	lang: 'en,fr,ru,el,sr,sr-latn,pt,pt-br',
 
 	getSlideShowDialogCss : function()
 	{
@@ -47,7 +47,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 
 	// Register the icons.
 	icons: 'slideshow',
-	
+
 	onLoad : function()
 	{
 		// v4
@@ -59,7 +59,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 	// The plugin initialization logic goes inside this method.
 	init: function( editor ) {
 		var lang = editor.lang.slideshow;
-		  
+
 		// Check for CKEditor 3.5
 		if (typeof editor.element.data == 'undefined')
 		{
@@ -89,7 +89,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 			// The button placement in the toolbar (toolbar group name).
 			toolbar: 'insert'
 		});
-		
+
 		editor.on( 'load', function( evt ) {
 		});
 
@@ -112,7 +112,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 			    }
 			  });
 			});
-		
+
 		if ( editor.contextMenu ) {
 			editor.addMenuGroup( 'slideshowGroup' );
 			editor.addMenuItem( 'slideshowItem', {
@@ -121,7 +121,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 				command: 'slideshow',
 				group: 'slideshowGroup'
 			});
-			
+
 			editor.contextMenu.addListener( function( element, selection )
 					{
 				if ( element && element.is( 'img' ) && !element.isReadOnly()
@@ -137,18 +137,18 @@ CKEDITOR.plugins.add( 'slideshow', {
 
 		// Register our dialog file. this.path is the plugin folder path.
 		CKEDITOR.dialog.add( 'slideshowDialog', this.path + 'dialogs/slideshow.min.js' );
-		
+
 		// v3
 		if (editor.addCss)
 			editor.addCss( this.getSlideShowDialogCss() );
-		
+
 		// Add special handling for these items
 		CKEDITOR.dtd.$empty['cke:source']=1;
 		CKEDITOR.dtd.$empty['source']=1;
 		editor.lang.fakeobjects.slideShow = lang.fakeObject;
 
 	}, // Init
-	
+
 	afterInit: function( editor )
 	{
 		var dataProcessor = editor.dataProcessor,
@@ -182,8 +182,8 @@ CKEDITOR.plugins.add( 'slideshow', {
 							fakeStyle = fakeElement.attributes.style = fakeStyle + ' display:block; ';
 							//console.log( fakeStyle );
 
-							return fakeElement;						
-						}				
+							return fakeElement;
+						}
 					}
 				}
 			}, { priority: 5, applyToAll: true });
@@ -208,6 +208,8 @@ CKEDITOR.plugins.add( 'slideshow', {
 		fr = { slideshow : fr} ;
 		ru = { slideshow : ru} ;
 		pt = { slideshow : pt} ;
+		el = { slideshow : el} ;
+		sr = { slideshow : sr} ;
 	}
 // Translations
 //CKEDITOR.plugins.setLang( 'slideshow', 'fr', fr );

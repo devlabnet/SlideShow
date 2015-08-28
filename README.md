@@ -3,14 +3,14 @@ SlideShow
 SlideShow Plugin for CKEditor
 
 A cool plugin which allow to create and manage SlideShow in CKEditor.
-You can easily Add, Remove images to create the Slide Show. 
+You can easily Add, Remove images to create the Slide Show.
 
 Specification
 -------------
-The plugin has been designed to work with the "Ad-Gallery" javascript slidshow program available at the 
-following location : http://adgallery.codeplex.com, and with "FancyBox" java program available at the 
+The plugin has been designed to work with the "Ad-Gallery" javascript slidshow program available at the
+following location : http://adgallery.codeplex.com, and with "FancyBox" java program available at the
 following location : http://fancybox.net/.
-For each slide show created with this plugin, you can adjust most of the available controls 
+For each slide show created with this plugin, you can adjust most of the available controls
 available in ad-gallery :
 
     Slide Effect.
@@ -20,15 +20,20 @@ available in ad-gallery :
     Show / Hide Thumbnails.
     Sho / Hide "Start - Stop" Buttons
     Open Image on Click (with a FancyBox pop-up).
-    ...  
+    ...
 
 Internationalization
 -------------------------
 Currently plugin supports 2 languages.
 
 * en
-* tr
-
+* fr
+* ru Russian
+* el Greek, Modern (1453-)
+* sr Serbian
+* sr-latin
+* pt Portuguese
+* pt-br Brazilian Portuguese
 *Translations are welcomed.*
 
 Usage
@@ -42,11 +47,11 @@ Usage
 
 The needed files for "ad-gallery" and "fancybox" are located under the 3rdParty directory, in the plugin package.
 They are just copy of the files from respective web sites (ad-gallery and fancybox), just a fews modifs have been made
-in the as-gallery css file, for info, and for curious people, the diffs compared to the original are in the patch 
+in the as-gallery css file, for info, and for curious people, the diffs compared to the original are in the patch
 file under this ad-gallery directory.
 Normally, nothing special has too be done with these files. If you like to change their location, just edit the "slidesho.js"
  and update the variables on top of this file.
-        
+
 Requirements
 -------------------------
 To correctly work, you need to have access to CKEditor, KCFinder (or any stuff to allow to upkoad images

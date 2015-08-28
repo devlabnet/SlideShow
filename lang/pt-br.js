@@ -21,6 +21,8 @@ CKEDITOR.plugins.setLang( 'slideshow', 'pt-br', {
 	showThumbs : 'Mostrar thumbnails',
 	showTitle : 'Mostrar título',
 	showControls : "Mostrar Início / Fim",
+	labelStart : "Início",
+	labelStop : "Fim",
 	displayTime : 'Aparecer por(Seg)',
 	transitionTime : 'Transição (mSeg)',
 	autoStart : 'AutoStart',
