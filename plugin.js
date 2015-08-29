@@ -41,7 +41,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 					'border: 1px solid #a9a9a9;' +
 					'width: 100px;' +
 					'height:100px;' +
-					'margin: 5px;';
+					'margin: 5px;' +
 				'}'
 	},
 
@@ -78,7 +78,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 		// Register the command.
 		editor.addCommand( 'slideshow', new CKEDITOR.dialogCommand( 'slideshowDialog', {
 			allowedContent: allowed,
-			requires: ['fakeobjects'],
+			requires: ['fakeobjects,contextmenu'],
 		} ) );
 
 		// Create a toolbar button that executes the above command.
