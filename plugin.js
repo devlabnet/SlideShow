@@ -28,6 +28,7 @@ if (!Array.prototype.forEach) {
 CKEDITOR.plugins.add( 'slideshow', {
 	// Translations, available at the end of this file, without extra requests
 	//lang : [ 'en', 'fr' ],
+	requires: 'contextmenu,fakeobjects',
 	lang: 'en,fr,ru,el,sr,sr-latn,pt,pt-br',
 
 	getSlideShowDialogCss : function()
@@ -78,7 +79,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 		// Register the command.
 		editor.addCommand( 'slideshow', new CKEDITOR.dialogCommand( 'slideshowDialog', {
 			allowedContent: allowed,
-			requires: ['fakeobjects,contextmenu'],
+			requires: ['fakeobjects'],
 		} ) );
 
 		// Create a toolbar button that executes the above command.
