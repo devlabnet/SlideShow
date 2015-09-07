@@ -23,6 +23,8 @@ CKEDITOR.plugins.setLang( 'slideshow', 'sr-latn', {
 	showControls : "Prikazi Start / Stop",
 	labelStart : "Start",
 	labelStop : "Stop",
+	arrowUp : "\u2191",
+	arrowDown : "\u2193",
 	displayTime : 'Pokaz. Time (Sec.)',
 	transitionTime : 'Tr. Time (mSec.)',
 	autoStart : 'AutoStart',

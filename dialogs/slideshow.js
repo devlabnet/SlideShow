@@ -868,6 +868,13 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		for ( var i = 0; i < dialog.params.length  ; i++ ) {
 			slideshowDOM.data(dialog.params[i][0], dialog.params[i][1]);
 		}
+        var scriptjQuery =  CKEDITOR.document.createElement( 'script', {
+			attributes: {
+				type: 'text/javascript',
+				src: SCRIPT_JQUERY
+			}
+		});
+		slideshowDOM.append(scriptjQuery);
 
 		// Add javascript for ""ad-gallery"
 		// Be sure the path is correct and file is available !!
@@ -1051,7 +1058,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 									align : 'center',
 									id: 'framepreviewtitleid',
 									style: 'font-family: Amaranth; color: #1E66EB;	font-size: 20px; font-weight: bold;',
-									html: 'Preview',
+									html: lang.previewMode,
 								},
 								{
 									type: 'html',
@@ -1226,7 +1233,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 												id : 'upselectedbtn',
 												style : 'width:32px; margin-left:25px;',
 												//style : 'display:none;',
-												label : '\u2191',
+												label : lang.arrowUp,
 												onClick :  function() {
 													upDownSelected(this.getDialog(), -1);
 												},
@@ -1237,7 +1244,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 												style : 'width:32px;',
 												//style : 'margin-left:5px;',
 												//style : 'display:none;',
-												label : '\u2193',
+												label : lang.arrowDown,
 												onClick :  function() {
 													upDownSelected(this.getDialog(), 1);
 												},

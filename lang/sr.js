@@ -23,6 +23,8 @@ CKEDITOR.plugins.setLang( 'slideshow', 'sr', {
 	showControls : "Прикажи Старт/Стоп",
 	labelStart : "Старт",
 	labelStop : "Стоп",
+	arrowUp : "\u2191",
+	arrowDown : "\u2193",
 	displayTime : 'Покаж. Време (Сек.)',
 	transitionTime : 'Пр. Време (мСек.)',
 	autoStart : 'АутоСтарт',

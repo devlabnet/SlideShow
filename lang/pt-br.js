@@ -23,6 +23,8 @@ CKEDITOR.plugins.setLang( 'slideshow', 'pt-br', {
 	showControls : "Mostrar Início / Fim",
 	labelStart : "Início",
 	labelStop : "Fim",
+	arrowUp : "\u2191",
+	arrowDown : "\u2193",
 	displayTime : 'Aparecer por(Seg)',
 	transitionTime : 'Transição (mSeg)',
 	autoStart : 'AutoStart',

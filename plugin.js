@@ -88,7 +88,8 @@ CKEDITOR.plugins.add( 'slideshow', {
 			label: lang.insertSlideShow,
 			command: 'slideshow',
 			// The button placement in the toolbar (toolbar group name).
-			toolbar: 'insert'
+			toolbar: 'insert',
+			icon: this.path + 'icons/slideshow.png'
 		});
 
 		editor.on( 'load', function( evt ) {
