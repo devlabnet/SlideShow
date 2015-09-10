@@ -13,6 +13,7 @@ CKEDITOR.plugins.setLang( 'slideshow', 'el', {
 	imgTitle : 'Τίτλος',
 	imgDelete : 'Διαγραφή',
 	imgEdit : 'Επεξεργασία',
+    validModif : 'Muudatuste salvestamiseks',
 	previewMode : 'Προεπισκόπηση',
 	imgDesc : 'Μικρή περιγραφή',
 	editSlideShow : 'Επεξεργασία SlideShow',

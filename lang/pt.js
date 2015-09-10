@@ -13,6 +13,7 @@ CKEDITOR.plugins.setLang( 'slideshow', 'pt', {
 	imgTitle : 'Título',
 	imgDelete : 'Deletar',
 	imgEdit : 'Editar',
+    validModif : 'salve as alteracoes',
 	previewMode : 'Preview',
 	imgDesc : 'Descrição curta',
 	editSlideShow : 'Editar SlideShow',

@@ -15,6 +15,7 @@ CKEDITOR.plugins.setLang( 'slideshow', 'sr-latn', {
 	imgEdit : 'Uredi',
 	previewMode : 'Pregled',
 	imgDesc : 'Kraci opis',
+    validModif : 'сачувате промене',
 	editSlideShow : 'Uredi SlideShow',
 	picturesList : "Lista Slika :",
 	insertSlideShow : 'Insertuj SlideShow',

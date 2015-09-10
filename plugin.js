@@ -12,6 +12,8 @@
 
 // Register the plugin within the editor.
 ( function() {
+    
+if (!window.console) console = {log: function() {}};
 
 if (!Array.prototype.forEach) {
     Array.prototype.forEach = function (fn, scope) {
@@ -43,7 +45,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 					'width: 100px;' +
 					'height:100px;' +
 					'margin: 5px;' +
-				'}'
+				'}';
 	},
 
 	// Register the icons.
@@ -61,7 +63,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 	init: function( editor ) {
 		var lang = editor.lang.slideshow;
 
-		// Check for CKEditor 3.5
+                // Check for CKEditor 3.5
 		if (typeof editor.element.data == 'undefined')
 		{
 			alert('The "Slide Show" plugin requires CKEditor 3.5 or newer');
@@ -79,7 +81,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 		// Register the command.
 		editor.addCommand( 'slideshow', new CKEDITOR.dialogCommand( 'slideshowDialog', {
 			allowedContent: allowed,
-			requires: ['fakeobjects'],
+			requires: ['fakeobjects']
 		} ) );
 
 		// Create a toolbar button that executes the above command.
@@ -107,13 +109,14 @@ CKEDITOR.plugins.add( 'slideshow', {
 		    //console.log( editor.filter.allowedContent );
 			//console.log('END ----------------------------');
 		} );
-		CKEDITOR.on('instanceReady', function(event) {
-			  event.editor.on('dialogShow', function(dialogShowEvent) {
-			    if(CKEDITOR.env.ie) {
-			      $(dialogShowEvent.data._.element.$).find('a[href*="void(0)"]').removeAttr('href');
-			    }
-			  });
-			});
+
+//		CKEDITOR.on('instanceReady', function(event) {
+//			  event.editor.on('dialogShow', function(dialogShowEvent) {
+//			    if(CKEDITOR.env.ie) {
+////			      $(dialogShowEvent.data. "_" .element.$).find('a[href*="void(0)"]').removeAttr('href');
+//			    }
+//			  });
+//			});
 
 		if ( editor.contextMenu ) {
 			editor.addMenuGroup( 'slideshowGroup' );

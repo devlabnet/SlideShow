@@ -13,6 +13,7 @@ CKEDITOR.plugins.setLang( 'slideshow', 'ru', {
 	imgTitle : 'Заголовок',
 	imgDelete : 'Удалить',
 	imgEdit : 'Добавить',
+    validModif : 'сохранить изменения',
 	previewMode : 'Предпросмотр',
 	imgDesc : 'Описание',
 	editSlideShow : 'Добавить Слайд-шоу',

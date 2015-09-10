@@ -1,4 +1,4 @@
-﻿/**
+/**
  * The slideshow dialog definition.
  * Copyright (c) 2003-2013, Cricri042. All rights reserved.
  * Targeted for "ad-gallery" JavaScript : http://adgallery.codeplex.com/
@@ -12,11 +12,12 @@
  *
  */
 
- function removeDomainFromUrl(string) {
- 	return string.replace(/^https?:\/\/[^\/]+/i, '');
- };
+function removeDomainFromUrl(string) {
+    "use strict";
+    return string.replace(/^https?:\/\/[^\/]+/i, '');
+}
 
-var IMG_PARAM = {"URL":0, "TITLE":1, "ALT":2, "WIDTH":3, "HEIGHT":4},
+var IMG_PARAM = {URL:0, TITLE:1, ALT:2, WIDTH:3, HEIGHT:4},
 pluginPath = removeDomainFromUrl(CKEDITOR.plugins.get( 'slideshow' ).path),
 BASE_PATH = removeDomainFromUrl(CKEDITOR.basePath),
 //SCRIPT_JQUERY = "https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js",
@@ -27,74 +28,98 @@ SCRIPT_FANCYBOX = pluginPath+'3rdParty/fancybox2/jquery.fancybox.pack.js?v=2.1.5
 CSS_FANCYBOX = pluginPath+"3rdParty/fancybox2/jquery.fancybox.css?v=2.1.5";
 
 function var_dump(_var, _level) {
+  "use strict";
   var dumped_text = "";
-  if(!_level) _level = 0;
+  if(!_level) {
+      _level = 0;
+  }
 
   //The padding given at the beginning of the line.
   var level_padding = "";
-  for(var j=0; j<_level+1; j++) level_padding += "    ";
+  var j;
+  for(j=0; j<_level+1; j+=1) {
+      level_padding += "    ";
+  }
 
     if(typeof(_var) == 'object') { //Array/Hashes/Objects
-      for(var item in _var) {
-    var value = _var[item];
+        var item;
+        var value;
 
-    if(typeof(value) == 'object') { // If it is an array,
-      dumped_text += level_padding + "'" + item + "' ...\n";
-      dumped_text += var_dump(value, _level+1);
-    } else {
-      dumped_text += level_padding +"'"+ item +"' => \""+ value +"\"\n";
-    }
-      }
+        for(item in _var) {
+            if (_var.hasOwnProperty(item)) {
+                value = _var[item];
+
+                if(typeof(value) == 'object') { // If it is an array,
+                  dumped_text += level_padding + "'" + item + "' ...\n";
+                  dumped_text += var_dump(value, _level+1);
+                } else {
+                  dumped_text += level_padding +"'"+ item +"' => \""+ value +"\"\n";
+                }
+            }
+        }
+        
     } else { //Stings/Chars/Numbers etc.
-      dumped_text = "===>"+ _var +"<===("+ typeof(_var) +")";
+        dumped_text = "===>"+ _var +"<===("+ typeof(_var) +")";
     }
   return dumped_text;
-};
+}
 
 var listItem = function( node ) {
-return node.type == CKEDITOR.NODE_ELEMENT && node.is( 'li' );
+    "use strict";
+    return node.type == CKEDITOR.NODE_ELEMENT && node.is( 'li' );
 };
 
 var ULItem = function( node ) {
-	return node.type == CKEDITOR.NODE_ELEMENT && node.is( 'ul' );
-	};
+    "use strict";
+    return node.type == CKEDITOR.NODE_ELEMENT && node.is( 'ul' );
+};
 
 var iFrameItem = function( node ) {
-	return node.type == CKEDITOR.NODE_ELEMENT && node.is( 'iframe' );
-	};
+    "use strict";
+    return node.type == CKEDITOR.NODE_ELEMENT && node.is( 'iframe' );
+};
 
-	Array.prototype.pushUnique = function (item){
-		for ( var i = 0; i < this.length ;  i++ ) {
-			if (this[i][0] == item[0]) return -1;
-		}
-	    this.push(item);
-	    return this.length - 1;
-	};
+Array.prototype.pushUnique = function (item){
+    "use strict";
+    var i;
+    for ( i = 0; i < this.length ;  i+=1 ) {
+        if (this[i][0] == item[0]) {
+            return -1;
+        }
+    }
+    this.push(item);
+    return this.length - 1;
+};
 
-	Array.prototype.updateVal = function (item, data){
-		for ( var i = 0; i < this.length ;  i++ ) {
-			if (this[i][0] == item) {
-				this[i] = [item, data];
-				return true;
-			};
-		};
-		this[i] = [item, data];
-		return false;
-	};
+Array.prototype.updateVal = function (item, data){
+    "use strict";
+    var i;
+    for ( i = 0; i < this.length ;  i+=1 ) {
+            if (this[i][0] == item) {
+                    this[i] = [item, data];
+                    return true;
+            }
+    }
+    this[i] = [item, data];
+    return false;
+};
 
-	Array.prototype.getVal = function (item){
-		for ( var i = 0; i < this.length ;  i++ ) {
-			if (this[i][0] == item) {
-				return this[i][1];
-			};
-		};
-		return null;
-	};
+Array.prototype.getVal = function (item){
+    "use strict";
+    var i;
+    for ( i = 0; i < this.length ;  i+=1 ) {
+            if (this[i][0] == item) {
+                    return this[i][1];
+            }
+    }
+    return null;
+};
 
 
 // Our dialog definition.
 CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
-	var lang = editor.lang.slideshow;
+    "use strict";
+    var lang = editor.lang.slideshow;
 
 //----------------------------------------------------------------------------------------------------
 // COMBO STUFF
@@ -104,28 +129,29 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 	{
 		combo = getSelect( combo );
 		var oOption;
-		if ( documentObject )
-			oOption = documentObject.createElement( "OPTION" );
-		else
-			oOption = document.createElement( "OPTION" );
+		if ( documentObject ) {
+                    oOption = documentObject.createElement( "OPTION" );
+                } else {
+                    oOption = document.createElement( "OPTION" );
+                }
 
 		if ( combo && oOption && oOption.getName() == 'option' )
 		{
 			if ( CKEDITOR.env.ie ) {
-				if ( !isNaN( parseInt( index, 10) ) )
+				if ( !isNaN( parseInt( index, 10) ) ) {
 					combo.$.options.add( oOption.$, index );
-				else
+                                } else {
 					combo.$.options.add( oOption.$ );
+                                }
 
 				oOption.$.innerHTML = optionText.length > 0 ? optionText : '';
 				oOption.$.value     = optionValue;
-			}
-			else
-			{
-				if ( index !== null && index < combo.getChildCount() )
-					combo.getChild( index < 0 ? 0 : index ).insertBeforeMe( oOption );
-				else
-					combo.append( oOption );
+			} else {
+				if ( index !== null && index < combo.getChildCount() ) {
+                                    combo.getChild( index < 0 ? 0 : index ).insertBeforeMe( oOption );
+                                } else {
+                                    combo.append( oOption );
+                                }
 
 				oOption.setText( optionText.length > 0 ? optionText : '' );
 				oOption.setValue( optionValue );
@@ -134,7 +160,8 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			return false;
 		}
 		return oOption;
-	};
+	}
+        
 	// Remove all selected options from a CHKBOX object.
 	function removeSelectedOptions( combo )
 	{
@@ -142,46 +169,54 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		// Save the selected index
 		var iSelectedIndex = getSelectedIndex( combo );
 		// Remove all selected options.
-		for ( var i = combo.getChildren().count() - 1 ; i >= 0 ; i-- )
+                var i;
+		for ( i = combo.getChildren().count() - 1 ; i >= 0 ; i-=1 )
 		{
-			if ( combo.getChild( i ).$.selected )
-				combo.getChild( i ).remove();
+			if ( combo.getChild( i ).$.selected ) {
+                            combo.getChild( i ).remove();
+                        }
 		}
 
 		// Reset the selection based on the original selected index.
 		setSelectedIndex( combo, iSelectedIndex );
-	};
+	}
+        
 	//Modify option  from a CHKBOX object.
 	function modifyOption( combo, index, title, value )
 	{
 		combo = getSelect( combo );
-		if ( index < 0 )
-			return false;
+		if ( index < 0 ) {
+                    return false;
+                }
 		var child = combo.getChild( index );
 		child.setText( title );
 		child.setValue( value );
 		return child;
-	};
+	}
+        
 	function removeAllOptions( combo )
 	{
 		combo = getSelect( combo );
 		while ( combo.getChild( 0 ) && combo.getChild( 0 ).remove() )
 		{ /*jsl:pass*/ }
-	};
+	}
+        
 	// Moves the selected option by a number of steps (also negative).
 	function changeOptionPosition( combo, steps, documentObject, dialog )
 	{
 		combo = getSelect( combo );
 		var iActualIndex = getSelectedIndex( combo );
-		if ( iActualIndex < 0 )
-			return false;
+		if ( iActualIndex < 0 ) {
+                    return false;
+                }
 
 		var iFinalIndex = iActualIndex + steps;
 		iFinalIndex = ( iFinalIndex < 0 ) ? 0 : iFinalIndex;
 		iFinalIndex = ( iFinalIndex >= combo.getChildCount() ) ? combo.getChildCount() - 1 : iFinalIndex;
 
-		if ( iActualIndex == iFinalIndex )
-			return false;
+		if ( iActualIndex == iFinalIndex ) {
+                    return false;
+                }
 
 		var re = /(^IMG_\d+)/;
 		// Modify sText in final index
@@ -192,9 +227,9 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		modifyOption( combo, iFinalIndex, sText, sValue );
 
 		// do the move
-		oOption = combo.getChild( iActualIndex ),
-			sText	= oOption.getText(),
-			sValue	= oOption.getValue();
+		oOption = combo.getChild( iActualIndex );
+                sText	= oOption.getText();
+                sValue	= oOption.getValue();
 
 		oOption.remove();
 
@@ -212,34 +247,41 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		dialog.imagesList[iFinalIndex] = valueActual;
 
 		return oOption;
-	};
+	}
+        
 	function getSelectedIndex( combo )
 	{
 		combo = getSelect( combo );
 		return combo ? combo.$.selectedIndex : -1;
-	};
+	}
+        
 	function setSelectedIndex( combo, index )
 	{
 		combo = getSelect( combo );
-		if ( index < 0 )
-			return null;
-		var count = combo.getChildren().count();
+		if ( index < 0 ) {
+                    return null;
+                }
+
+                var count = combo.getChildren().count();
 		combo.$.selectedIndex = ( index >= count ) ? ( count - 1 ) : index;
 		return combo;
-	};
+	}
+        
 	function getOptions( combo )
 	{
 		combo = getSelect( combo );
 		return combo ? combo.getChildren() : false;
-	};
+	}
+        
 	function getSelect( obj )
 	{
-		if ( obj && obj.domId && obj.getInputElement().$ )
-			return  obj.getInputElement();
-		else if ( obj && obj.$ )
-			return obj;
+		if ( obj && obj.domId && obj.getInputElement().$ ) {
+                    return  obj.getInputElement();
+                } else if ( obj && obj.$ ) {
+                    return obj;
+                }
 		return false;
-	};
+	}
 
 	function unselectAll(dialog) {
 		var editBtn = dialog.getContentElement( 'slideshowinfoid', 'editselectedbtn');
@@ -250,11 +292,12 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		deleteBtn.hide();
 		var comboList = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
 		comboList = getSelect( comboList );
-		for ( var i = comboList.getChildren().count() - 1 ; i >= 0 ; i-- )
+                var i;
+		for ( i = comboList.getChildren().count() - 1 ; i >= 0 ; i-=1 )
 		{
 			comboList.getChild( i ).$.selected = false;
 		}
-	};
+	}
 
 	function unselectIfNotUnique(combo) {
 		var dialog = combo.getDialog();
@@ -263,9 +306,10 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		var cnt = 0;
 		var editBtn = dialog.getContentElement( 'slideshowinfoid', 'editselectedbtn');
 		var deleteBtn = dialog.getContentElement( 'slideshowinfoid', 'removeselectedbtn');
-		for ( var i = combo.getChildren().count() - 1 ; i >= 0 ; i-- )
+                var i, child;
+		for ( i = combo.getChildren().count() - 1 ; i >= 0 ; i-=1 )
 		{
-			var child = combo.getChild( i );
+			child = combo.getChild( i );
 			if ( child.$.selected ) {
 				cnt++;
 				selectefItem = child;
@@ -274,36 +318,37 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		if (cnt > 1) {
 			unselectAll(dialog);
 			return null;
-		} else {
-			if (cnt == 1) {
+		} else if (cnt == 1) {
 				editBtn = getSelect( editBtn );
 				editBtn.show();
 				deleteBtn = getSelect( deleteBtn );
 				deleteBtn.show();
 				displaySelected(dialog);
 				return selectefItem;
-			}
 		}
 		return null;
-	};
+	}
 
 	function displaySelected (dialog) {
-		if (dialog.openCloseStep == true) return;
+		if (dialog.openCloseStep == true) {
+                    return;
+                }
 		var previewCombo = dialog.getContentElement( 'slideshowinfoid', 'framepreviewid');
 		if ( previewCombo.isVisible()) {
 			previewSlideShow(dialog);
 		} else {
 			editeSelected(dialog);
 		}
-	};
+	}
 
 	function selectFirstIfNotUnique(combo) {
 		var dialog = combo.getDialog();
 		combo = getSelect( combo );
 		var firstSelectedInd = 0;
-		for ( var i = 0; i < combo.getChildren().count()  ; i++ )
+                var i, child, selectefItem;
+		for ( i = 0; i < combo.getChildren().count()  ; i+=1 )
 		{
-			var child = combo.getChild( i );
+			child = combo.getChild( i );
 			if ( child.$.selected ) {
 				selectefItem = child;
 				firstSelectedInd = i;
@@ -317,7 +362,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 	function getSlectedIndex(dialog) {
 		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
 		return getSelectedIndex( combo );
-	};
+	}
 
 //----------------------------------------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------
@@ -348,6 +393,8 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		} else {
 			w = w*ratio;
 		}
+                var oOption;
+                var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
 		var ind = dialog.imagesList.pushUnique([url, '', '', w.toFixed(0), h.toFixed(0)]);
 		if (ind >= 0) {
 			oOption = addOption( combo, 'IMG_'+ind + ' : ' + url.substring(url.lastIndexOf('/')+1), url, dialog.getParentEditor().document );
@@ -356,7 +403,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			// Update dialog
 			displaySelected(dialog);
 		}
-	};
+	}
 
 	function editeSelected(dialog) {
 		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
@@ -383,14 +430,15 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		previewCombo.hide();
 		imgCombo = getSelect( imgCombo );
 		imgCombo.show();
-	};
+	}
 
 	function removeSelected(dialog) {
 		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
 		combo = getSelect( combo );
 		var someRemoved = false;
 		// Remove all selected options.
-		for ( var i = combo.getChildren().count() - 1 ; i >= 0 ; i-- )
+                var i;
+		for ( i = combo.getChildren().count() - 1 ; i >= 0 ; i-- )
 		{
 			if ( combo.getChild( i ).$.selected ) {
 				// Remove image from image Array
@@ -403,7 +451,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		if (someRemoved) {
 			if (dialog.imagesList.length == 0) {
 				var url =  BASE_PATH  + 'plugins/slideshow/icons/placeholder.png' ;
-				oOption = addOption( combo, 'IMG_0' + ' : ' + url.substring(url.lastIndexOf('/')+1) , url, dialog.getParentEditor().document );
+				var oOption = addOption( combo, 'IMG_0' + ' : ' + url.substring(url.lastIndexOf('/')+1) , url, dialog.getParentEditor().document );
 				 dialog.imagesList.pushUnique([url, lang.imgTitle, lang.imgDesc, '50', '50']);
 			}
 			// select index 0
@@ -411,20 +459,27 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			// Update dialog
 			displaySelected(dialog);
 		}
-	};
+	}
 
 	function upDownSelected(dialog, offset) {
 		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
 		combo = getSelect( combo );
 		var iSelectedIndex = getSelectedIndex( combo );
-		if (combo.getChildren().count() == 1) return;
-		if ((offset == -1) && (iSelectedIndex == 0)) return;
-		if ((offset == 1) && (iSelectedIndex == combo.getChildren().count()-1)) return;
+		if (combo.getChildren().count() == 1) {
+                    return;
+                }
+		if ((offset == -1) && (iSelectedIndex == 0)) {
+                    return;
+                }
+		if ((offset == 1) && (iSelectedIndex == combo.getChildren().count()-1)) {
+                    return;
+                }
 		//alert(iSelectedIndex+" / "+combo.getChildren().count() + " / "+ offset);
 		changeOptionPosition( combo, offset, dialog.getParentEditor().document, dialog );
 
 		updateFramePreview(dialog);
 	}
+        
 	// To automatically get the dimensions of the poster image
 	var onImgLoadEvent = function() {
 		// Image is ready.
@@ -462,13 +517,13 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		previewCombo = getSelect( previewCombo );
 		previewCombo.show();
 		updateFramePreview(dialog);
-	};
+	}
 
 	function feedFrame(frame, data) {
 		frame.open();
 		frame.writeln( data );
 		frame.close();
-	};
+	}
 
 // 	function unprotectRealComments( html )
 // 	{
@@ -495,17 +550,22 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		} else if ( dialog.params.getVal('showcontrolid') == true) {
 			height -= 30;
 		}
-		if (dialog.imagesList.length == 0) return;
+		if (dialog.imagesList.length == 0) {
+                    return;
+                }
 		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
 		var iSelectedIndex = getSelectedIndex( combo );
-		if (iSelectedIndex < 0) iSelectedIndex = 0;
-		var combo = dialog.getContentElement( 'slideshowinfoid', 'framepreviewid');
+		if (iSelectedIndex < 0) {
+                    iSelectedIndex = 0;
+                }
+                
+		combo = dialog.getContentElement( 'slideshowinfoid', 'framepreviewid');
+                
 		var strVar="";
 		strVar += "<head>";
-
 		strVar += '<script src="'+SCRIPT_JQUERY+'" type="text/javascript"></script>';
-	    strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_ADDGAL+"\"><\/script>";
-	    strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_ADDGAL+"\" \/>";
+                strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_ADDGAL+"\"><\/script>";
+                strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_ADDGAL+"\" \/>";
 		if ( dialog.params.getVal('openOnClickId') == true) {
 		    strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_FANCYBOX+"\" \/>";
 		    strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_FANCYBOX+"\"><\/script>";
@@ -521,85 +581,99 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 	    strVar += "<\/head>";
 	    strVar += "<body>";
 	    var domGallery = createDOMdGalleryRun(dialog);
-		strVar += domGallery.getOuterHtml();
+            strVar += domGallery.getOuterHtml();
 	    strVar += "<\/body>";
 	    strVar += "";
 
-		combo = getSelect( combo );
-		var theFrame = combo.getFirst( iFrameItem );
-		if (theFrame) theFrame.remove();
+            combo = getSelect( combo );
+            var theFrame = combo.getFirst( iFrameItem );
+            if (theFrame) {
+                theFrame.remove();
+            }
 	    var ifr = null;
 
 	    var w = width+60;
 	    var h = height;
-		if ( dialog.params.getVal('showthumbid') == true) {
-			h += 120;
-		} else if ( dialog.params.getVal('showcontrolid') == true) {
-			h += 30;
-		}
-		var iframe = CKEDITOR.dom.element.createFromHtml( '<iframe' +
-				' style="width:'+w+'px;height:'+h+'px;background:azure; "'+
-				' class="cke_pasteframe"' +
-				' frameborder="10" ' +
-				' allowTransparency="false"' +
+		
+            if ( dialog.params.getVal('showthumbid') == true) {
+                    h += 120;
+            } else if ( dialog.params.getVal('showcontrolid') == true) {
+                    h += 30;
+            }
+            var iframe = CKEDITOR.dom.element.createFromHtml( '<iframe' +
+                            ' style="width:'+w+'px;height:'+h+'px;background:azure; "'+
+                            ' class="cke_pasteframe"' +
+                            ' frameborder="10" ' +
+                            ' allowTransparency="false"' +
 //				' src="' + 'data:text/html;charset=utf-8,' +  strVar + '"' +
-				' role="region"' +
-				' scrolling="no"' +
-				'></iframe>' );
+                            ' role="region"' +
+                            ' scrolling="no"' +
+                            '></iframe>' );
 
-		iframe.setAttribute('name', 'totoFrame');
-		iframe.setAttribute('id', 'totoFrame');
-		iframe.on( 'load', function( event ) {
-			if (ifr != null) return;
-			ifr =  this.$;
-			if (ifr.contentDocument)
-				iframedoc = ifr.contentDocument;
-			else if (ifr.contentWindow)
-				iframedoc = ifr.contentWindow.document;
-			 if (iframedoc){
-				 // Put the content in the iframe
-				 feedFrame(iframedoc, strVar);
-			 } else {
-				//just in case of browsers that don't support the above 3 properties.
-				//fortunately we don't come across such case so far.
-				alert('Cannot inject dynamic contents into iframe.');
-			 }
-		});
-		combo.append(iframe);
-	};
+            iframe.setAttribute('name', 'totoFrame');
+            iframe.setAttribute('id', 'totoFrame');
+            iframe.on( 'load', function( event ) {
+                    if (ifr != null) {
+                        return;
+                    }
+                    ifr =  this.$;
+                    var iframedoc;
+                    if (ifr.contentDocument) {
+                            iframedoc = ifr.contentDocument;
+                    } else if (ifr.contentWindow) {
+                            iframedoc = ifr.contentWindow.document;
+                    }
+                    
+                    if (iframedoc){
+                             // Put the content in the iframe
+                             feedFrame(iframedoc, strVar);
+                    } else {
+                           //just in case of browsers that don't support the above 3 properties.
+                           //fortunately we don't come across such case so far.
+                           alert('Cannot inject dynamic contents into iframe.');
+                    }
+            });
+            combo.append(iframe);
+	}
 
 	function initImgListFromDOM(dialog, slideShowContainer) {
 		var i, image, src;
 		var imgW, imgH;
+                var ratio, w, h, ind;
 		var arr  = slideShowContainer.$.getElementsByTagName("img");
-		combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
-		for (i = 0; i < arr.length; i++) {
+		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
+		for (i = 0; i < arr.length; i+=1) {
 			image = arr[i];
 			src = image.src;
 			// IE Seems sometime to return 0 !!, So natural Width and Height seems OK
 			// If not just pput 50, Not as good but not so bad !!
 			imgW =  image.width;
-			if (imgW == 0) imgW = image.naturalWidth;
+			if (imgW == 0) {
+                            imgW = image.naturalWidth;
+                        }
 			if (imgW == 0) {
 				imgW = 50;
 				imgH = 50;
 			} else {
 				imgH =  image.height;
-				if (imgH == 0) imgH = image.naturalHeight;
+				if (imgH == 0) {
+                                    imgH = image.naturalHeight;
+                                }
 				if (imgH == 0) {
 					imgW = 50;
 					imgH = 50;
 				}
 			}
-			var ratio = imgW / imgH;
-			var w = 50;
-			var h = 50;
+			ratio = imgW / imgH;
+			w = 50;
+			h = 50;
 			if (ratio > 1) {
 				h = h/ratio;
 			} else {
 				w = w*ratio;
 			}
-			var ind = dialog.imagesList.pushUnique([src, image.title, image.alt, w, h]);
+			ind = dialog.imagesList.pushUnique([src, image.title, image.alt, w, h]);
+                        var oOption;
 			if (ind >= 0) {
 				oOption = addOption( combo, 'IMG_'+ind + ' : ' + src.substring(src.lastIndexOf('/')+1), src, dialog.getParentEditor().document );
 			}
@@ -608,23 +682,23 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		setSelectedIndex(combo, 0);
 		// Update dialog
 		displaySelected(dialog);
-    };
+        }
 
 	function initImgListFromFresh(dialog) {
-		combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
+		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
 		var url =  BASE_PATH  + 'plugins/slideshow/icons/placeholder.png' ;
-		oOption = addOption( combo, 'IMG_0' + ' : ' + url.substring(url.lastIndexOf('/')+1) , url, dialog.getParentEditor().document );
+		var oOption = addOption( combo, 'IMG_0' + ' : ' + url.substring(url.lastIndexOf('/')+1) , url, dialog.getParentEditor().document );
 		dialog.imagesList.pushUnique([url, lang.imgTitle, lang.imgDesc, '50', '50']);
 		// select index 0
 		setSelectedIndex(combo, 0);
 		// Update dialog
 		displaySelected(dialog);
-    };
+        }
 
 
 	function commitSlideShow(dialog) {
 		dialog.slideshowDOM.setAttribute('data-'+this.id, this.getValue());
-	};
+	}
 
 	function loadValue() {
 		var dialog = this.getDialog();
@@ -632,46 +706,49 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			// New fresh SlideShow so let's put dom data attributes from dialog default values
 			dialog.slideshowDOM.setAttribute('data-'+this.id, this.getValue());
 			switch ( this.type ) {
-			case 'checkbox':
-				break;
-			case 'text':
-				break;
-			case 'select':
-				break;
-			default:
+                            case 'checkbox':
+                                    break;
+                            case 'text':
+                                    break;
+                            case 'select':
+                                    break;
+                            default:
+                                break;
 			}
 		} else {
 			// Loaded SlideShow, so update Dialog values from DOM data attributes
 
 			switch ( this.type ) {
-			case 'checkbox':
-				this.setValue(dialog.slideshowDOM.getAttribute('data-'+this.id) == 'true');
-				break;
-			case 'text':
-				this.setValue(dialog.slideshowDOM.getAttribute('data-'+this.id));
-				break;
-			case 'select':
-				this.setValue(dialog.slideshowDOM.getAttribute('data-'+this.id));
-				break;
-			default:
+                            case 'checkbox':
+                                    this.setValue(dialog.slideshowDOM.getAttribute('data-'+this.id) == 'true');
+                                    break;
+                            case 'text':
+                                    this.setValue(dialog.slideshowDOM.getAttribute('data-'+this.id));
+                                    break;
+                            case 'select':
+                                    this.setValue(dialog.slideshowDOM.getAttribute('data-'+this.id));
+                                    break;
+                            default:
+                                break;
 			}
 		}
-	};
+	}
 
 	function commitValue() {
 		var dialog = this.getDialog();
 		dialog.params.updateVal(this.id, this.getValue());
 		switch ( this.type ) {
-		case 'checkbox':
-			break;
-		case 'text':
-			break;
-		case 'select':
-			break;
-		default:
+                    case 'checkbox':
+                            break;
+                    case 'text':
+                            break;
+                    case 'select':
+                            break;
+                    default:
+                        break;
 		}
 		displaySelected(dialog);
-	};
+	}
 
 	function cleanAll(dialog) {
 		if ( dialog.previewImage )
@@ -685,11 +762,11 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		dialog.imagesList = null;
 		dialog.params = null;
 		dialog.slideshowDOM = null;
-		combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
+		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
 		removeAllOptions(combo);
 		dialog.openCloseStep = false;
 
-	};
+	}
 
 	function randomChars(len) {
 	    var chars = '';
@@ -707,25 +784,32 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 
 	function getImagesContainerBlock(dialog, dom) {
 		var obj = dom.getElementsByTag("ul");
-		if (obj == null) return null;
+		if (obj == null) {
+                    return null;
+                }
 		if (obj.count() == 1) {
 			return obj.getItem(0);
-		};
+		}
 		return null;
-	};
+	}
 
 	function createScriptAdGalleryRun(dialog, iSelectedIndex, width, height) {
-		var slideshowid =  dialog.params.getVal('slideshowid'),
-			galleryId   =  'ad-gallery_' + slideshowid,
-			strVar      = '(function($) {',
-			strHook     = '';
+            var slideshowid =  dialog.params.getVal('slideshowid'),
+                galleryId   =  'ad-gallery_' + slideshowid,
+                strVar      = '(function($) {',
+                strHook     = '';
+        
 	    strVar += "$(function() {";
 //	    if (width == 0) width = "false";
-	    if (height == 0) height = dialog.params.getVal('pictheightid');
+	    if (height == 0) {
+                height = dialog.params.getVal('pictheightid');
+            }
 //	    if (width == 0) width = dialog.params.getVal('pictWidthtid');
 //	    if (height == 0) height = "false";
 //	    if (width <= 1) width = "false";
-	    if (width == 0) width = "false";
+	    if (width == 0) {
+                width = "false";
+            }
 	    if (dialog.params.getVal('showtitleid') == false) {
 	    	strHook = ",  hooks: { displayDescription: function(image) {}}";
 	    }
@@ -736,18 +820,18 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 	    				", update_window_hash: false, effect: '" + dialog.params.getVal('transitiontypeid') +
 	    				"',";
 	    //alert(params);
+
 	    var slideShowParams = " slideshow: { enable: true, autostart: " + dialog.params.getVal('autostartid') +
 											", start_label: '" + lang.labelStart + "'" +
 											", stop_label: '" + lang.labelStop + "'" +
 	    									", speed: " + dialog.params.getVal('speedid') * 1000 +
-	    									",},";
+	    									"}";
 	    strVar += "   var galleries = $('#"+galleryId+"').adGallery({" + params + slideShowParams + "});";
 	    strVar += "});";
 		strVar += "})(jQuery);";
-	    //console.log(strVar);
-//	    strVar += "});";
-		return strVar;
-	};
+
+            return strVar;
+	}
 
 	function createScriptFancyBoxRun(dialog) {
 		var slideshowid =  dialog.params.getVal('slideshowid'),
@@ -783,14 +867,14 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		str += "});";
 		str += "});";
 		str += "})(jQuery);";
-//		str += "});";
-		//console.log(str);
-		return str;
-	};
+
+                return str;
+	}
 
 	function feedUlWithImages(dialog, ulObj) {
-		for ( var i = 0; i < dialog.imagesList.length  ; i++ ) {
-			var liObj = ulObj.append( 'li' );
+                var i, liObj, aObj, newImgDOM;
+		for ( i = 0; i < dialog.imagesList.length  ; i+=1 ) {
+			liObj = ulObj.append( 'li' );
 			liObj.setAttribute( 'contenteditable', 'false');
 			aObj = liObj.append( 'a' );
 			aObj.setAttribute( 'href', removeDomainFromUrl(dialog.imagesList[i][IMG_PARAM.URL]) );
@@ -803,7 +887,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			newImgDOM.setAttribute('width',  dialog.imagesList[i][IMG_PARAM.WIDTH]);
 			newImgDOM.setAttribute('height',  dialog.imagesList[i][IMG_PARAM.HEIGHT]);
 		}
-	};
+	}
 
 	function createDOMdGalleryRun(dialog) {
 		var slideshowid =  dialog.params.getVal('slideshowid');
@@ -850,7 +934,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 
 		feedUlWithImages(dialog, ulObj);
 		return slideshowDOM;
-	};
+	}
 
 	function ClickOkBtn(dialog) {
 		var extraStyles = {},
@@ -862,13 +946,14 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		dialog.commitContent(dialog);
 
 		// Create a new DOM
-	    var slideshowDOM = createDOMdGalleryRun(dialog);
+                var slideshowDOM = createDOMdGalleryRun(dialog);
 
-	    // Add data tags to dom
-		for ( var i = 0; i < dialog.params.length  ; i++ ) {
+                // Add data tags to dom
+                var i;
+		for ( i = 0; i < dialog.params.length  ; i+=1 ) {
 			slideshowDOM.data(dialog.params[i][0], dialog.params[i][1]);
 		}
-        var scriptjQuery =  CKEDITOR.document.createElement( 'script', {
+                var scriptjQuery =  CKEDITOR.document.createElement( 'script', {
 			attributes: {
 				type: 'text/javascript',
 				src: SCRIPT_JQUERY
@@ -910,7 +995,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			// Add RUN javascript for "fancybox"
 			var scriptFancyboxRun =  CKEDITOR.document.createElement( 'script', {
 				attributes: {
-					type: 'text/javascript',
+					type: 'text/javascript'
 				}
 			});
 			scriptFancyboxRun.setText(createScriptFancyBoxRun(dialog));
@@ -930,7 +1015,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		// Add RUN javascript for "ad-Gallery"
 		var scriptAdGalleryRun =  CKEDITOR.document.createElement( 'script', {
 			attributes: {
-				type: 'text/javascript',
+				type: 'text/javascript'
 			}
 		});
 		scriptAdGalleryRun.setText(createScriptAdGalleryRun(dialog, 0, 0, 0));
@@ -959,7 +1044,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		cleanAll(dialog);
 		dialog.hide();
 		return true;
-	};
+	}
 
 	return {
 		// Basic properties of the dialog window: title, minimum size.
@@ -970,24 +1055,23 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		buttons: [
 		      	CKEDITOR.dialog.okButton( editor, {
 					label: 'OkCK',
-					style : 'display:none;',
+					style : 'display:none;'
 				}),
 		      	CKEDITOR.dialog.cancelButton,
 
 		      	{
-		      		id: 'myokbtnid',
-		            type: 'button',
-		      		label: 'OK',
-		      		title: 'Button description',
-					style : 'color:white;background:blue;',
-		      		accessKey: 'C',
-		      		disabled: false,
-		      		onClick: function()
-		      			{
-		      				// code on click
-			      			ClickOkBtn(this.getDialog());
-		      			},
-		      	},
+                            id: 'myokbtnid',
+                            type: 'button',
+                            label: 'OK',
+                            title: lang.validModif,
+                            accessKey: 'C',
+                            disabled: false,
+                            onClick: function()
+                                    {
+                                        // code on click
+                                        ClickOkBtn(this.getDialog());
+                                    }
+		      	}
 		      ],
 		// Dialog window contents definition.
 		contents: [
@@ -998,45 +1082,44 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 				align : 'center',
 				// The tab contents.
 				elements: [
-							{
-								type : 'text',
-								id : 'id',
-								style : 'display:none;',
-								onLoad : function()
-								{
-								    this.getInputElement().setAttribute( 'readOnly', true );
-								},
-							},
+                                        {
+                                            type : 'text',
+                                            id : 'id',
+                                            style : 'display:none;',
+                                            onLoad : function()
+                                            {
+                                                this.getInputElement().setAttribute( 'readOnly', true );
+                                            }
+                                        },
+                                        {
+                                            type: 'text',
+                                            id: 'txturlid',
+                                            style : 'display:none;',
+                                            label: lang.imgList,
+                                            onChange: function() {
+                                                var dialog = this.getDialog(),
+                                                    newUrl = this.getValue();
+                                                if ( newUrl.length > 0 ) { //Prevent from load before onShow
+                                                    var preview = dialog.previewImage;
+                                                    preview.on( 'load', onImgLoadEvent, dialog );
+                                                    preview.on( 'error', onImgLoadErrorEvent, dialog );
+                                                    preview.on( 'abort', onImgLoadErrorEvent, dialog );
+                                                    preview.setAttribute( 'src', newUrl );
+                                                }
+                                            }
+                                        },
 					{
-						type: 'text',
-						id: 'txturlid',
-						style : 'display:none;',
-						label: lang.imgList,
-						onChange: function() {
-							var dialog = this.getDialog(),
-								newUrl = this.getValue();
-							if ( newUrl.length > 0 ) { //Prevent from load before onShow
-								var preview = dialog.previewImage;
-								preview.on( 'load', onImgLoadEvent, dialog );
-								preview.on( 'error', onImgLoadErrorEvent, dialog );
-								preview.on( 'abort', onImgLoadErrorEvent, dialog );
-								preview.setAttribute( 'src', newUrl );
-							};
-						},
-					},
-					{
-						type : 'button',
-						id : 'browse',
-						hidden : 'true',
-						style : 'display:inline-block;margin-top:0px;',
-						filebrowser :
-						{
-							action : 'Browse',
-							target: 'slideshowinfoid:txturlid',
-							url: editor.config.filebrowserImageBrowseUrl || editor.config.filebrowserBrowseUrl,
-						},
-						label : lang.imgAdd,
-
+                                            type : 'button',
+                                            id : 'browse',
+                                            hidden : 'true',
+                                            style : 'display:inline-block;margin-top:0px;',
+                                            filebrowser :
+                                            {
+                                                action : 'Browse',
+                                                target: 'slideshowinfoid:txturlid',
+                                                url: editor.config.filebrowserImageBrowseUrl || editor.config.filebrowserBrowseUrl
+                                            },
+                                            label : lang.imgAdd
 					},
 
 //					{
@@ -1051,21 +1134,21 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 
 					{
 					type: 'vbox',
-				    align: 'center',
+                                        align: 'center',
 					children: [
 								{
 									type: 'html',
 									align : 'center',
 									id: 'framepreviewtitleid',
 									style: 'font-family: Amaranth; color: #1E66EB;	font-size: 20px; font-weight: bold;',
-									html: lang.previewMode,
+									html: lang.previewMode
 								},
 								{
 									type: 'html',
 									id: 'framepreviewid',
 									align : 'center',
 									style : 'width:500px;height:320px',
-									html: '',
+									html: ''
 								},
 								{
 									type: 'hbox',
@@ -1085,45 +1168,37 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 														id : 'imgtitleid',
 														label : lang.imgTitle,
 														onChange: function() {
-															{
-																updateTitle(this.getDialog(), this.getValue());
-															}
+                                                                                                                    updateTitle(this.getDialog(), this.getValue());
 														},
 														onBlur: function() {
-															{
-																updateTitle(this.getDialog(), this.getValue());
-															}
-														},
+                                                                                                                    updateTitle(this.getDialog(), this.getValue());
+														}
 													},
 													{
 														type : 'text',
 														id : 'imgdescid',
 														label : lang.imgDesc,
 														onChange: function() {
-															{
-																updateDescription(this.getDialog(), this.getValue());
-															}
+                                                                                                                    updateDescription(this.getDialog(), this.getValue());
 														},
 														onBlur: function() {
-															{
-																updateDescription(this.getDialog(), this.getValue());
-															}
-														},
+                                                                                                                    updateDescription(this.getDialog(), this.getValue());
+														}
 													},
 													{
 														type : 'html',
 														id : 'imgpreviewid',
 														style : 'width:400px;height:200px;',
-														html: '<div>xx</div>',
+														html: '<div>xx</div>'
 													}
 												]
-											},
+											}
 										]
 								},
 								{
 								type : 'hbox',
-							    align: 'center',
-							    height: 110,
+                                                                align: 'center',
+                                                                height: 110,
 								widths: [ '25%', '50%'],
 								children :
 								[
@@ -1176,7 +1251,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 												onChange : commitValue,
 												commit : commitValue,
 												setup : loadValue
-											},
+											}
 						                ]
 				                    },
 								{
@@ -1184,12 +1259,12 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			                        id: 'imglistitemsid',
 			                        label: lang.picturesList,
 			                        multiple: false,
-									style : 'height:125px;width:250px',
+                                                style : 'height:125px;width:250px',
 			                        items: [],
 			                    	onChange : function( api ) {
 			                    		//unselectIfNotUnique(this);
 			                    		selectFirstIfNotUnique(this);
-			                    	},
+			                    	}
 			                    },
 			                    {
 								type : 'vbox',
@@ -1212,7 +1287,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 										label : lang.imgDelete,
 										onClick :  function() {
 											removeSelected(this.getDialog());
-										},
+										}
 									},
 									{
 										type : 'button',
@@ -1222,7 +1297,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 										label : lang.imgEdit,
 										onClick :  function() {
 											editeSelected(this.getDialog());
-										},
+										}
 									},
 									{
 										type : 'hbox',
@@ -1236,7 +1311,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 												label : lang.arrowUp,
 												onClick :  function() {
 													upDownSelected(this.getDialog(), -1);
-												},
+												}
 											},
 											{
 												type : 'button',
@@ -1247,13 +1322,13 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 												label : lang.arrowDown,
 												onClick :  function() {
 													upDownSelected(this.getDialog(), 1);
-												},
-											},
-										],
-									},
-								 ],
-			                    },
-			                ],
+												}
+											}
+										]
+									}
+								 ]
+			                    }
+			                ]
 						},
 	                    {
 							type : 'hbox',
@@ -1296,7 +1371,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			                    		displaySelected(this.getDialog());
 			                    	},
 									commit : commitValue,
-									setup : loadValue,
+									setup : loadValue
 								},
 								{
 									type : 'text',
@@ -1306,15 +1381,15 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 									style : 'width:100px;',
 									'default' : '5',
 			                    	onChange : function( api ) {
-										var intRegex = /^\d+$/;
-										if(intRegex.test(this.getValue()) == false) {
+                                                        var intRegex = /^\d+$/;
+                                                        if(intRegex.test(this.getValue()) == false) {
 			                    			this.setValue(5);
 			                    		}
 			                    		this.getDialog().params.updateVal(this.id, this.getValue());
 			                    		displaySelected(this.getDialog());
 			                    	},
 									commit : commitValue,
-									setup : loadValue,
+									setup : loadValue
 								},
 								{
 									type : 'text',
@@ -1324,15 +1399,15 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 									maxLength : 4,
 									'default' : '500',
 			                    	onChange : function( api ) {
-										var intRegex = /^\d+$/;
-										if(intRegex.test(this.getValue()) == false) {
+                                                        var intRegex = /^\d+$/;
+                                                        if(intRegex.test(this.getValue()) == false) {
 			                    			this.setValue(500);
 			                    		}
 			                    		this.getDialog().params.updateVal(this.id, this.getValue());
 			                    		displaySelected(this.getDialog());
 			                    	},
 									commit : commitValue,
-									setup : loadValue,
+									setup : loadValue
 								},
 								{
 									type : 'select',
@@ -1345,14 +1420,14 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 									style : 'width:100px;',
 									commit : commitValue,
 									setup : loadValue,
-									onChange : commitValue,
-								},
+									onChange : commitValue
+								}
 							]
 	                    }
-			            ],
-					},
+			            ]
+					}
 				]
-			},
+			}
 		],
 
 
@@ -1365,14 +1440,13 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			this.openCloseStep = true;
 			this.fakeImage =  null;
 			var slideshowDOM = null;
-			this.imagesList = new Array();
-			this.params = new Array();
+			this.imagesList = [];
+			this.params = [];
 			// To get dimensions of poster image
 			this.previewImage = editor.document.createElement( 'img' );
 			this.okRefresh = true;
 
-
-			var fakeImage = this.getSelectedElement();
+                        var fakeImage = this.getSelectedElement();
 			if ( fakeImage && fakeImage.data( 'cke-real-element-type' ) && fakeImage.data( 'cke-real-element-type' ) == 'slideShow' )
 			{
 				this.fakeImage = fakeImage;
@@ -1408,7 +1482,10 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 				// Init params Array from DOM
 				// Copy all attributes to an array.
 				var domDatas = slideshowDOM.$.dataset;
-				for ( param in  domDatas ) this.params.push( [ param, domDatas[ param ] ] );
+                                var param;
+				for ( param in  domDatas ) {
+                                    this.params.push( [ param, domDatas[ param ] ] );
+                                }
 
 				// Invoke the setup methods of all dialog elements, to set dialog elements values with DOM input data.
 				this.setupContent(this, true);
@@ -1440,6 +1517,6 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 
 		onHide: function() {
 			cleanAll(this);
-		},
+		}
 	};
 });

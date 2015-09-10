@@ -12,6 +12,7 @@ CKEDITOR.plugins.setLang( 'slideshow', 'fr', {
 	imgAdd : 'Ajouter une Image',
 	imgDelete : 'Supprimer',
 	imgEdit : 'Editer',
+    validModif : 'Valider les modifications',
 	previewMode : 'Aper\347u',
 	imgTitle : 'Titre',
 	imgDesc : 'Courte Description',
@@ -36,5 +37,5 @@ CKEDITOR.plugins.setLang( 'slideshow', 'fr', {
 	openOnClick : 'Ouvrir en Cliquant',
 	transition : 'Type de Transition',
 	picturesList : "Liste des Images : ",
-	insertSlideShow : 'Ins\351rer un Caroussel',
+	insertSlideShow : 'Ins\351rer un Caroussel'
 });

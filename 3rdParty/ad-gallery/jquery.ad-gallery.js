@@ -14,7 +14,7 @@
 		  image_wrapper_width = w;
 		};
 	$( window ).resize(function() {
-		  showWidth( "gallery", $( document.getElementsByClassName('ad-gallery')[0] ).width() );
+		  showWidth( "gallery", $( '.ad-gallery' )[0].width() );
 		});
 
   $.fn.adGallery = function(options) {
@@ -241,7 +241,7 @@
       this.fireCallback(this.settings.callbacks.init);
   	$( window ).resize(function() {
   		//console.log("zzzzzzzzzzzz", $( document.getElementsByClassName('ad-gallery')[0] ).width());
-  		this.image_wrapper_width = $( document.getElementsByClassName('ad-gallery')[0] ).width();
+  		this.image_wrapper_width = $('.ad-gallery').first().width();
 	});
     },
     setupAnimations: function() {
@@ -255,8 +255,8 @@
       },
       adjustSize: function() {
     	  //console.log(this.wrapper[0].clientWidth);
-    	  if (this.wrapper[0].clientWidth >  $( document.getElementsByClassName('ad-gallery')[0] ).width()) {
-    		  this.image_wrapper_width = $( document.getElementsByClassName('ad-gallery')[0] ).width();
+    	  if (this.wrapper[0].clientWidth >  $('.ad-gallery').first().width()) {
+    		  this.image_wrapper_width = $('.ad-gallery').first().width();
     	  } else {
         		this.image_wrapper_width = this.wrapper[0].clientWidth;
     	  }
@@ -888,7 +888,7 @@
   function AdGallerySlideshow(nextimage_callback, settings) {
     this.init(nextimage_callback, settings);
 	  //console.log("xxx -> ", $( document.getElementsByClassName('ad-gallery')).length);
-	  this.galOnPageCnt = $( document.getElementsByClassName('ad-gallery')).length;
+	  this.galOnPageCnt = $('.ad-gallery').length;
   };
   AdGallerySlideshow.prototype = {
     start_link: false,
