@@ -368,7 +368,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 //----------------------------------------------------------------------------------------------------
 
 	function removePlaceHolderImg(dialog) {
-		var urlPlaceHolder =  BASE_PATH  + 'plugins/slideshow/icons/placeholder.png' ;
+		var urlPlaceHolder =  BASE_PATH  + 'plugins/slideshow/images/placeholder.png' ;
 		if ((dialog.imagesList.length == 1) && (dialog.imagesList[0][IMG_PARAM.URL] == urlPlaceHolder)) {
 			// Remove the place Holder Image
 			var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
@@ -450,7 +450,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		}
 		if (someRemoved) {
 			if (dialog.imagesList.length == 0) {
-				var url =  BASE_PATH  + 'plugins/slideshow/icons/placeholder.png' ;
+				var url =  BASE_PATH  + 'plugins/slideshow/images/placeholder.png' ;
 				var oOption = addOption( combo, 'IMG_0' + ' : ' + url.substring(url.lastIndexOf('/')+1) , url, dialog.getParentEditor().document );
 				 dialog.imagesList.pushUnique([url, lang.imgTitle, lang.imgDesc, '50', '50']);
 			}
@@ -686,7 +686,7 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 
 	function initImgListFromFresh(dialog) {
 		var combo = dialog.getContentElement( 'slideshowinfoid', 'imglistitemsid');
-		var url =  BASE_PATH  + 'plugins/slideshow/icons/placeholder.png' ;
+		var url =  BASE_PATH  + 'plugins/slideshow/images/placeholder.png' ;
 		var oOption = addOption( combo, 'IMG_0' + ' : ' + url.substring(url.lastIndexOf('/')+1) , url, dialog.getParentEditor().document );
 		dialog.imagesList.pushUnique([url, lang.imgTitle, lang.imgDesc, '50', '50']);
 		// select index 0

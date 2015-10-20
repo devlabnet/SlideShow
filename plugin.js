@@ -37,7 +37,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 	{
 		return 'img.cke_slideShow' +
 				'{' +
-					'background-image: url(' + CKEDITOR.getUrl( this.path + 'icons/placeholder.png' ) + ');' +
+					'background-image: url(' + CKEDITOR.getUrl( this.path + 'images/placeholder.png' ) + ');' +
 					'background-position: center center;' +
 					'background-repeat: no-repeat;' +
 					'background-color:Azure;'+
@@ -169,7 +169,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 							//alert("dataFilter : " + realElement.attributes['class']);
 							var fakeElement = editor.createFakeParserElement( realElement, 'cke_slideShow', 'slideShow', false ),
 							fakeStyle = fakeElement.attributes.style || '';
-							var imgSrc = CKEDITOR.getUrl('plugins/slideshow/icons/placeholder.png' );
+							var imgSrc = CKEDITOR.getUrl('plugins/slideshow/images/placeholder.png' );
 							var foundOne = false;
 							Array.prototype.forEach.call(realElement, function( node ) {
 								//console.log( "---------> " + node.name );
