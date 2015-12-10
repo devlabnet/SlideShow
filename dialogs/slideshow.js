@@ -562,10 +562,14 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		combo = dialog.getContentElement( 'slideshowinfoid', 'framepreviewid');
                 
 		var strVar="";
+		var jqueryStr = '<script src="'+SCRIPT_JQUERY+'" type="text/javascript"></script>';
 		strVar += "<head>";
-		strVar += '<script src="'+SCRIPT_JQUERY+'" type="text/javascript"></script>';
-                strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_ADDGAL+"\"><\/script>";
-                strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_ADDGAL+"\" \/>";
+//		if (editor.config.slideshowDoNotLoadJquery && (editor.config.slideshowDoNotLoadJquery == true)) {
+//			jqueryStr = '';
+//		}
+		strVar += jqueryStr;
+        strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_ADDGAL+"\"><\/script>";
+        strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_ADDGAL+"\" \/>";
 		if ( dialog.params.getVal('openOnClickId') == true) {
 		    strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_FANCYBOX+"\" \/>";
 		    strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_FANCYBOX+"\"><\/script>";
@@ -833,11 +837,47 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
             return strVar;
 	}
 
+//	function createScriptFancyBoxRun(dialog) {
+//		var slideshowid =  dialog.params.getVal('slideshowid'),
+//			galleryId   =  'ad-gallery_' + slideshowid,
+//			str         = '(function($) {';
+////		str +=  "$(document).ready(function() {";
+//		str += "$(function() {";
+//		str += "$(\"#"+galleryId+"\").on(\"click\",\".ad-image\",function(){";
+//		str += "var imgObj =$(this).find(\"img\");";
+//		str += "var isrc=imgObj.attr(\"src\");";
+//		str += "var ititle=null;";
+//		str += "var idesc=null;";
+//		str += "var iname=isrc.split('/');";
+//		str += "iname=iname[iname.length-1];";
+//		str += "var imgdescid=$(this).find(\".ad-image-description\");";
+//		str += "if(imgdescid){";
+//		str += "ititle=$(this).find(\".ad-description-title\");";
+//		str += "if(ititle)ititle=ititle.text();";
+//		str += "if(ititle!='')ititle='<big>'+ititle+'</big>';";
+//		str += "idesc=$(this).find(\"span\");";
+//		str += "if(idesc)idesc=idesc.text();";
+//		str += "if(idesc!=''){";
+//		str += "if(ititle!='')ititle=ititle+'<br>';";
+//		str += "idesc='<i>'+idesc+'</i>';";
+//		str += "}";
+//		str += "}";
+//		str += "$.fancybox.open({";
+//		str += "href:isrc,";
+//		str += "beforeLoad:function(){";
+//		str += "this.title=ititle+idesc;";
+//		str += "},";
+//		str += "});";
+//		str += "});";
+//		str += "});";
+//		str += "})(jQuery);";
+//
+//                return str;
+//	}
 	function createScriptFancyBoxRun(dialog) {
 		var slideshowid =  dialog.params.getVal('slideshowid'),
 			galleryId   =  'ad-gallery_' + slideshowid,
 			str         = '(function($) {';
-//		str +=  "$(document).ready(function() {";
 		str += "$(function() {";
 		str += "$(\"#"+galleryId+"\").on(\"click\",\".ad-image\",function(){";
 		str += "var imgObj =$(this).find(\"img\");";
@@ -853,6 +893,10 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		str += "if(ititle!='')ititle='<big>'+ititle+'</big>';";
 		str += "idesc=$(this).find(\"span\");";
 		str += "if(idesc)idesc=idesc.text();";
+//		str += 'console.log("idesc:", idesc);';
+		str += "if (idesc.indexOf('IMAGE_LINK_') >= 0) {";
+		str += "idesc = '';";
+		str += "}";
 		str += "if(idesc!=''){";
 		str += "if(ititle!='')ititle=ititle+'<br>';";
 		str += "idesc='<i>'+idesc+'</i>';";
@@ -867,10 +911,50 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		str += "});";
 		str += "});";
 		str += "})(jQuery);";
-
-                return str;
+        return str;
 	}
-
+	function createScriptLinkRun(dialog) {
+		var slideshowid =  dialog.params.getVal('slideshowid'),
+		galleryId   =  'ad-gallery_' + slideshowid,
+		str         = '(function($) {';
+		str += "$(function() {";
+		str += "$(\"#"+galleryId+"\").on(\"click\",\".ad-image\",function(){";
+		str += "var imgObj =$(this).find(\"img\");";
+		str += "var isrc=imgObj.attr(\"src\");";
+		str += "var ititle=null;";
+		str += "var idesc=null;";
+		str += "var iname=isrc.split('/');";
+		str += "iname=iname[iname.length-1];";
+		str += "var imgdescid=$(this).find(\".ad-image-description\");";
+		str += "if(imgdescid){";
+		str += "ititle=$(this).find(\".ad-description-title\");";
+		str += "if(ititle)ititle=ititle.text();";
+		str += "idesc=$(this).find(\"span\");";
+	//	str += "console.log('desc0', idesc);";
+		str += "if(idesc)idesc=idesc.text();";
+		str += "if(idesc!=''){";
+	//	str += "console.log('desc1', idesc);";
+		
+	//	str += "if (idesc.indexOf('LIEN:') == 0) {";
+	//	str += "idesc = idesc.substring(5);}";
+	//	str += "window.open(idesc);"
+	//	str += "}";
+		str += "var url=window.location.href.trim();";
+		str += "if (idesc.indexOf('IMAGE_LINK_TAB:') >= 0) {";
+		str += "	idesc = idesc.substring(15).trim();";
+		str += " if (url != idesc) window.open(idesc,'_blank');";
+		str += "} else if (idesc.indexOf('IMAGE_LINK_PAR:') >= 0) {";
+		str += "	idesc = idesc.substring(15).trim();";
+		str += " if (url != idesc) window.open(idesc,'_self');";
+		str += "}";
+	
+		str += "}";
+		str += "}";
+		str += "});";
+		str += "});";
+		str += "})(jQuery);";
+	    return str;
+	}
 	function feedUlWithImages(dialog, ulObj) {
                 var i, liObj, aObj, newImgDOM;
 		for ( i = 0; i < dialog.imagesList.length  ; i+=1 ) {
@@ -953,14 +1037,15 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		for ( i = 0; i < dialog.params.length  ; i+=1 ) {
 			slideshowDOM.data(dialog.params[i][0], dialog.params[i][1]);
 		}
-                var scriptjQuery =  CKEDITOR.document.createElement( 'script', {
-			attributes: {
-				type: 'text/javascript',
-				src: SCRIPT_JQUERY
-			}
-		});
-		slideshowDOM.append(scriptjQuery);
-
+		if (!(editor.config.slideshowDoNotLoadJquery && (editor.config.slideshowDoNotLoadJquery == true))) {
+	        var scriptjQuery =  CKEDITOR.document.createElement( 'script', {
+				attributes: {
+					type: 'text/javascript',
+					src: SCRIPT_JQUERY
+				}
+			});
+			slideshowDOM.append(scriptjQuery);
+		}
 		// Add javascript for ""ad-gallery"
 		// Be sure the path is correct and file is available !!
 		var scriptAdGallery =  CKEDITOR.document.createElement( 'script', {
@@ -1001,6 +1086,14 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 			scriptFancyboxRun.setText(createScriptFancyBoxRun(dialog));
 			slideshowDOM.append(scriptFancyboxRun);
 		}
+		// Add RUN javascript for "link"
+		var scriptLinkRun =  CKEDITOR.document.createElement( 'script', {
+			attributes: {
+				type: 'text/javascript'
+			}
+		});
+		scriptLinkRun.setText(createScriptLinkRun(dialog));
+		slideshowDOM.append(scriptLinkRun);
 
 		// Dynamically add CSS for "ad-gallery"
 		// Be sure the path is correct and file is available !!

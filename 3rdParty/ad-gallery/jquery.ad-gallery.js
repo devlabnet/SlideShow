@@ -14,7 +14,7 @@
 		  image_wrapper_width = w;
 		};
 	$( window ).resize(function() {
-		  if ($( '.ad-gallery' )[0].width) showWidth( "gallery", $( '.ad-gallery' )[0].width() );
+		  if (($( '.ad-gallery' )[0]) && ($( '.ad-gallery' )[0].width)) showWidth( "gallery", $( '.ad-gallery' )[0].width() );
 		});
 
   $.fn.adGallery = function(options) {
@@ -651,21 +651,50 @@
       img_container.css('width', '100%');
       img_container.css('text-align', 'center');
     },
+//    _getDescription: function(image) {
+//      var desc = '';
+//      if(image.desc.length || image.title.length) {
+//        var title = '';
+//        if(image.title.length) {
+//          title = '<strong class="ad-description-title">'+ image.title +'</strong>';
+//        };
+//        desc = '';
+//        if(image.desc.length) {
+//          desc = '<span>'+ image.desc +'</span>';
+//        };
+//        desc = $('<p class="ad-image-description">'+ title + desc +'</p>');
+//      };
+//      return desc;
+//    },
     _getDescription: function(image) {
-      var desc = '';
-      if(image.desc.length || image.title.length) {
-        var title = '';
-        if(image.title.length) {
-          title = '<strong class="ad-description-title">'+ image.title +'</strong>';
+        var desc = '';
+        var classDesc = '<p class="ad-image-description">';
+        if(image.desc.length || image.title.length) {
+          var title = '';
+          if(image.title.length) {
+            title = '<strong class="ad-description-title">'+ image.title +'</strong>';
+          } else {
+        	  classDesc = '';        	
+          }
+          desc = '';
+          if(image.desc.length) {
+            if (image.desc.indexOf('IMAGE_LINK_') >= 0) {
+          	  desc = '<span style="display:none;">'+ image.desc +'</span>'; 	
+                var url=window.location.href.trim();
+                var idesc = image.desc.substring(12).trim();
+                if (url == idesc) {
+              	  classDesc = '';
+              	  title = '';
+                }
+            } else {
+          	  desc = '<span>'+ image.desc +'</span>'; 	  
+            }
+          };
+          desc = $(classDesc + title + desc +'</p>');
         };
-        desc = '';
-        if(image.desc.length) {
-          desc = '<span>'+ image.desc +'</span>';
-        };
-        desc = $('<p class="ad-image-description">'+ title + desc +'</p>');
-      };
-      return desc;
-    },
+        return desc;
+      },
+
     /**
      * @param function callback Gets fired when the image has loaded, is displaying
      *                          and it's animation has finished
