@@ -14,7 +14,7 @@
 		  image_wrapper_width = w;
 		};
 	$( window ).resize(function() {
-		  showWidth( "gallery", $( '.ad-gallery' )[0].width() );
+		  if ($( '.ad-gallery' )[0].width) showWidth( "gallery", $( '.ad-gallery' )[0].width() );
 		});
 
   $.fn.adGallery = function(options) {
