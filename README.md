@@ -10,6 +10,10 @@ Specification
 The plugin has been designed to work with the "Ad-Gallery" javascript slidshow program available at the
 following location : http://adgallery.codeplex.com, and with "FancyBox" java program available at the
 following location : http://fancybox.net/.
+
+December 12, 2015 : NEW Feature which allows to add "clickable" link on images, 
+look at the documentation for more information.
+
 For each slide show created with this plugin, you can adjust most of the available controls
 available in ad-gallery :
 
