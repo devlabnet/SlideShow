@@ -571,8 +571,12 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
         strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_ADDGAL+"\"><\/script>";
         strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_ADDGAL+"\" \/>";
 		if ( dialog.params.getVal('openOnClickId') == true) {
+			if (!(editor.config.slideshowDoNotLoadFancyBoxCss && (editor.config.slideshowDoNotLoadFancyBoxCss == true))) {
 		    strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_FANCYBOX+"\" \/>";
+			}
+			if (!(editor.config.slideshowDoNotLoadFancyBoxScript && (editor.config.slideshowDoNotLoadFancyBoxScript == true))) {
 		    strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_FANCYBOX+"\"><\/script>";
+			}
 		    strVar += "<script type=\"text\/javascript\">";
 		    strVar += 	createScriptFancyBoxRun(dialog);
 		    strVar += "<\/script>";
