@@ -571,12 +571,12 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
         strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_ADDGAL+"\"><\/script>";
         strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_ADDGAL+"\" \/>";
 		if ( dialog.params.getVal('openOnClickId') == true) {
-			if (!(editor.config.slideshowDoNotLoadFancyBoxCss && (editor.config.slideshowDoNotLoadFancyBoxCss == true))) {
-		    strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_FANCYBOX+"\" \/>";
-			}
-			if (!(editor.config.slideshowDoNotLoadFancyBoxScript && (editor.config.slideshowDoNotLoadFancyBoxScript == true))) {
-		    strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_FANCYBOX+"\"><\/script>";
-			}
+			//if (!(editor.config.slideshowDoNotLoadFancyBoxCss && (editor.config.slideshowDoNotLoadFancyBoxCss == true))) {
+				strVar += "<link rel=\"stylesheet\" type=\"text\/css\" href=\""+CSS_FANCYBOX+"\" \/>";
+			//}
+			//if (!(editor.config.slideshowDoNotLoadFancyBoxScript && (editor.config.slideshowDoNotLoadFancyBoxScript == true))) {
+				strVar += "<script type=\"text\/javascript\" src=\""+SCRIPT_FANCYBOX+"\"><\/script>";
+			//}
 		    strVar += "<script type=\"text\/javascript\">";
 		    strVar += 	createScriptFancyBoxRun(dialog);
 		    strVar += "<\/script>";
@@ -1063,24 +1063,26 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		if ( dialog.params.getVal('openOnClickId') == true) {
 			// Dynamically add CSS for "fancyBox"
 			// Be sure the path is correct and file is available !!
-			var scriptFancyBoxCss =  CKEDITOR.document.createElement( 'script', {
-				attributes: {
-					type: 'text/javascript'
-				}
-			});
-			scriptFancyBoxCss.setText("(function($) { $('head').append('<link rel=\"stylesheet\" href=\""+CSS_FANCYBOX+"\" type=\"text/css\" />'); })(jQuery);");
-			slideshowDOM.append(scriptFancyBoxCss);
-
+			if (!(editor.config.slideshowDoNotLoadFancyBoxCss && (editor.config.slideshowDoNotLoadFancyBoxCss == true))) {
+				var scriptFancyBoxCss =  CKEDITOR.document.createElement( 'script', {
+					attributes: {
+						type: 'text/javascript'
+					}
+				});
+				scriptFancyBoxCss.setText("(function($) { $('head').append('<link rel=\"stylesheet\" href=\""+CSS_FANCYBOX+"\" type=\"text/css\" />'); })(jQuery);");
+				slideshowDOM.append(scriptFancyBoxCss);
+			}
 			// Add javascript for ""fancyBox"
 			// Be sure the path is correct and file is available !!
-			var scriptFancyBox =  CKEDITOR.document.createElement( 'script', {
-				attributes: {
-					type: 'text/javascript',
-					src: SCRIPT_FANCYBOX
-				}
-			});
-			slideshowDOM.append(scriptFancyBox);
-
+			if (!(editor.config.slideshowDoNotLoadFancyBoxScript && (editor.config.slideshowDoNotLoadFancyBoxScript == true))) {
+				var scriptFancyBox =  CKEDITOR.document.createElement( 'script', {
+					attributes: {
+						type: 'text/javascript',
+						src: SCRIPT_FANCYBOX
+					}
+				});
+				slideshowDOM.append(scriptFancyBox);
+			}
 			// Add RUN javascript for "fancybox"
 			var scriptFancyboxRun =  CKEDITOR.document.createElement( 'script', {
 				attributes: {
