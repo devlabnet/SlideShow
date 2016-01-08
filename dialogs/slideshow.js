@@ -886,6 +886,9 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		str += "$(\"#"+galleryId+"\").on(\"click\",\".ad-image\",function(){";
 		str += "var imgObj =$(this).find(\"img\");";
 		str += "var isrc=imgObj.attr(\"src\");";
+		//str += 'console.log("isrc:", isrc);';
+		//str += "isrc = isrc.substr(0, isrc.lastIndexOf('.'));";
+		//str += 'console.log("isrc:", isrc);';
 		str += "var ititle=null;";
 		str += "var idesc=null;";
 		str += "var iname=isrc.split('/');";

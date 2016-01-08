@@ -243,6 +243,7 @@
 
 			// Recheck if the type of each element is `object` and set content type (image, ajax, etc)
 			$.each(group, function(i, element) {
+				//console.log(element);
 				var obj = {},
 					href,
 					title,
@@ -289,6 +290,7 @@
 						type = rez ? rez[1] : null;
 					}
 				}
+				//console.log(href);
 
 				if (isString(href)) {
 					// Try to guess the content type
@@ -307,7 +309,9 @@
 							content = element;
 						}
 					}
-
+					//console.log(type);
+					// if no type detected, force it to image (as normaly only images will be in the slideshow)
+					if (!type) type = 'image';
 					// Split url into two pieces with source url and content selector, e.g,
 					// "/mypage.html #my_id" will load "/mypage.html" and display element having id "my_id"
 					if (type === 'ajax') {
