@@ -141,6 +141,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 		}
 
 		// Register our dialog file. this.path is the plugin folder path.
+//		CKEDITOR.dialog.add( 'slideshowDialog', this.path + 'dialogs/slideshow.js' );
 		CKEDITOR.dialog.add( 'slideshowDialog', this.path + 'dialogs/slideshow.min.js' );
 
 		// v3
@@ -182,10 +183,18 @@ CKEDITOR.plugins.add( 'slideshow', {
 									}
 								}
 							} );
-							fakeStyle = fakeElement.attributes.style = fakeStyle + ' background-image:url("' + imgSrc + '"); ';
-							fakeStyle = fakeElement.attributes.style = fakeStyle + ' background-size:50%; ';
-							fakeStyle = fakeElement.attributes.style = fakeStyle + ' display:block; ';
+							//fakeStyle = fakeElement.attributes.style = fakeStyle + ' background-image:url("' + imgSrc + '"); ';
+							//fakeStyle = fakeElement.attributes.style = fakeStyle + ' background-size:50%; ';
+							//fakeStyle = fakeElement.attributes.style = fakeStyle + ' display:block; ';
 							//console.log( fakeStyle );
+							fakeStyle = fakeElement.attributes.style = fakeStyle + ' background-image:url("' + imgSrc + '"); ';
+							fakeStyle = fakeElement.attributes.style = fakeStyle + ' background-size:contain; ';
+							fakeStyle = fakeElement.attributes.style = fakeStyle + ' background-repeat:no-repeat; ';
+							fakeStyle = fakeElement.attributes.style = fakeStyle + ' background-position:center; ';
+							fakeStyle = fakeElement.attributes.style = fakeStyle + ' width:64px; ';
+							fakeStyle = fakeElement.attributes.style = fakeStyle + ' height:64px; ';
+							fakeStyle = fakeElement.attributes.style = fakeStyle + ' display:block; ';
+							fakeStyle = fakeElement.attributes.style = fakeStyle + ' border:1px solid black; ';
 
 							return fakeElement;
 						}

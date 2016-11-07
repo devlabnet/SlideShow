@@ -1126,8 +1126,13 @@ CKEDITOR.dialog.add( 'slideshowDialog', function( editor ) {
 		if (dialog.imagesList.length) {
 			extraStyles.backgroundImage =  'url("' + dialog.imagesList[0][IMG_PARAM.URL] + '")';
 		}
-		extraStyles.backgroundSize = '50%';
+		extraStyles.backgroundSize = 'contain';
+		extraStyles.backgroundRepeat = 'no-repeat';
+		extraStyles.backgroundPosition = 'center';
 		extraStyles.display = 'block';
+		extraStyles.width = '64px';
+		extraStyles.height = '64px';
+		extraStyles.border = '1px solid black';
 		// Create a new Fake Image
 		var newFakeImage = editor.createFakeElement( slideshowDOM, 'cke_slideShow', 'slideShow', false );
 		newFakeImage.setAttributes( extraAttributes );
