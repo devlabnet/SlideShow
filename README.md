@@ -29,10 +29,11 @@ available in ad-gallery :
 
 Internationalization
 -------------------------
-Currently plugin supports 2 languages.
+Currently plugin supports 9 languages.
 
 * en
 * fr
+* de
 * ru Russian
 * el Greek, Modern (1453-)
 * sr Serbian
