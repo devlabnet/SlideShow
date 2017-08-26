@@ -31,7 +31,7 @@ CKEDITOR.plugins.add( 'slideshow', {
 	// Translations, available at the end of this file, without extra requests
 	//lang : [ 'en', 'fr' ],
 	requires: 'contextmenu,fakeobjects',
-	lang: 'en,fr,ru,el,sr,sr-latn,pt,pt-br',
+	lang: 'en,de,fr,ru,el,sr,sr-latn,pt,pt-br',
 
 	getSlideShowDialogCss : function()
 	{
